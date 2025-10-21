@@ -1,0 +1,11 @@
+.vscode
+.git
+cli
+.env
+.env.*
+README.md
+*.lock
+.gitignore
+Dockerfile
+__pycache__
+fashion_product_images
