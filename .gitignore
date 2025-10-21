@@ -1,2 +1,3 @@
 fashion_product_images
 __pycache__
+*.lock
