@@ -5,6 +5,7 @@ import tensorflow as tf
 import tensorflowjs as tfjs
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 from shared import OUT_DIR, BASE_DIR, CSV_PATH, IMAGES_DIR, OUTPUT_H5_PATH
 
 if not os.path.exists(BASE_DIR):
@@ -129,10 +130,18 @@ def train_model_from_dataset():
   )
 
   # 6. Train model
+  callbacks = [
+      ModelCheckpoint(OUTPUT_H5_PATH, save_best_only=True, monitor="val_loss"),
+      EarlyStopping(patience=6, restore_best_weights=True, monitor="val_loss"),
+      ReduceLROnPlateau(factor=0.5, patience=3, monitor="val_loss"),
+  ]
   history = model.fit(
       train_gen,
       validation_data=val_gen,
-      epochs=10
+      epochs=50,
+      callbacks=callbacks,
+      workers=6,
+      use_multiprocessing=True,
   )
 
   # 7. Save model

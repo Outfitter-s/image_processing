@@ -7,7 +7,14 @@ import tensorflow as tf
 from shared import BASE_DIR, CSV_PATH, IMAGES_DIR, OUTPUT_H5_PATH
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}}) # TODO: restrict in production
+
+API_KEY = os.getenv("API_KEY")
+
+@app.before_request
+def require_api_key():
+    key = request.headers.get("X-API-Key")
+    if API_KEY and key != API_KEY:
+        return jsonify({"error": "Forbidden"}), 403
 
 @app.route('/remove', methods=['POST'])
 def remove_background():
@@ -34,7 +41,7 @@ def load_classification_model():
     global _model
     if _model is None:
         if not os.path.exists(OUTPUT_H5_PATH):
-            raise FileNotFoundError(f"Model file not found at {OUTPUT_H5_PATH}. Create it using ai/imageClassification/main.py")
+            raise FileNotFoundError(f"Model file not found at {OUTPUT_H5_PATH}. Create it using train.py")
         _model = tf.keras.models.load_model(OUTPUT_H5_PATH)
 
 @app.route('/classify', methods=['POST'])

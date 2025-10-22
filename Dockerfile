@@ -1,10 +1,10 @@
+FROM python:3.11.14-slim AS  builder
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --prefix=/install --no-cache-dir -r requirements.txt
+
 FROM python:3.11.14-slim
 WORKDIR /app
-
-COPY requirements.txt requirements.txt
-RUN pip3 install --upgrade pip && pip install --no-cache-dir -r requirements.txt
-
+COPY --from=builder /install /usr/local
 COPY . .
-EXPOSE 5000
-
-CMD ["gunicorn", "app:app", "-b", "0.0.0.0:5000", "-w", "1"]
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:5000"]
