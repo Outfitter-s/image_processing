@@ -1,5 +1,6 @@
-import pandas as pd
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
@@ -147,5 +148,5 @@ def train_model_from_dataset():
   print("✅ Model saved as h5")
 
 
-if __name__ == "__main__":
-  train_model_from_dataset()
+# if __name__ == "__main__":
+train_model_from_dataset()
