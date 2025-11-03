@@ -1,10 +1,9 @@
 from flask import Flask, request, send_file, jsonify
-from flask_cors import CORS
 from rembg import remove
 import io
 import os
 import tensorflow as tf
-from shared import BASE_DIR, CSV_PATH, IMAGES_DIR, OUTPUT_H5_PATH
+from shared import TYPE_DETECTION_OUT_OUTPUT_H5_PATH
 
 app = Flask(__name__)
 
@@ -40,9 +39,9 @@ _model = None
 def load_classification_model():
     global _model
     if _model is None:
-        if not os.path.exists(OUTPUT_H5_PATH):
-            raise FileNotFoundError(f"Model file not found at {OUTPUT_H5_PATH}. Create it using train.py")
-        _model = tf.keras.models.load_model(OUTPUT_H5_PATH)
+        if not os.path.exists(TYPE_DETECTION_OUT_OUTPUT_H5_PATH):
+            raise FileNotFoundError(f"Model file not found at {TYPE_DETECTION_OUT_OUTPUT_H5_PATH}. Create it using train.py")
+        _model = tf.keras.models.load_model(TYPE_DETECTION_OUT_OUTPUT_H5_PATH)
 
 @app.route('/classify', methods=['POST'])
 def classify_image():

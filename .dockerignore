@@ -9,3 +9,5 @@ README.md
 Dockerfile
 __pycache__
 fashion_product_images
+.venv
+.venv.*

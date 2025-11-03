@@ -1,9 +1,13 @@
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT_DIR = os.path.join(HERE, "out")
-BASE_DIR = os.path.join(OUT_DIR, "fashion_product_images")
 
-CSV_PATH = os.path.join(BASE_DIR, "styles.csv")
-IMAGES_DIR = os.path.join(BASE_DIR, "images")
-OUTPUT_H5_PATH = os.path.join(OUT_DIR, "fashion_clothing_classifier.h5")
+# --- START TYPE DETECTION PATHS ---
+TYPE_DETECTION_DIR = os.path.join(HERE, "type_detection")
+TYPE_DETECTION_OUT_DIR = os.path.join(TYPE_DETECTION_DIR, "out")
+TYPE_DETECTION_OUT_BASE_DIR = os.path.join(TYPE_DETECTION_OUT_DIR, "fashion_product_images")
+
+TYPE_DETECTION_OUT_CSV_PATH = os.path.join(TYPE_DETECTION_DIR, "styles.csv")
+TYPE_DETECTION_OUT_IMAGES_DIR = os.path.join(TYPE_DETECTION_DIR, "images")
+TYPE_DETECTION_OUT_OUTPUT_H5_PATH = os.path.join(TYPE_DETECTION_OUT_DIR, "fashion_clothing_classifier.h5")
+# --- END TYPE DETECTION PATHS ---
